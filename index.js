@@ -5,10 +5,10 @@ const path = require("path");
 // Local file inclusion
 const Employee = require("./lib/Employee");
 // Template helper code added
-const RenderCard = require("./src/RenderCard");
+const render = require("./src/RenderCard");
 // Output path using path package 
 const outputdir = path.resolve(__dirname, "output"); // to be saved to a generated directory named as output
-const outputPath = path.join(OUTPUT_DIR, "TeamDashboard.html"); // Will be named as TeamDashboard.html in that folder
+const outputPath = path.join(outputdir, "TeamDashboard.html"); // Will be named as TeamDashboard.html in that folder
 
 const teamMember =[];
 
@@ -97,12 +97,12 @@ const startApp = () => {
             inquirer
             .prompt(rolequestion(answers.role))
             .then((res) => {
-                const newemployee = new Employee(answers.name, answers.id, answers.email, res);
+                const newemployee = new Employee(answers.role, answers.name, answers.id, answers.email, res);
                 teamMember.push(newemployee);
                 console.log(`${answers.name} is added to the team`)
                 startApp();
             })
-        }); 
+        });
     })
 };
 
