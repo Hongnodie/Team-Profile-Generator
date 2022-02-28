@@ -1,7 +1,6 @@
 // npm package inclusion
 const fs = require("fs");
 const inquirer = require("inquirer");
-const { initial } = require("lodash");
 const path = require("path");
 // Local file inclusion
 const Employee = require("./lib/Employee");
@@ -78,7 +77,7 @@ function rolequestion(role) {
   
 }
 
-const startApp = async () => {
+const startApp = () => {
     inquirer.prompt([
         {
             type: "confirm",
@@ -86,27 +85,34 @@ const startApp = async () => {
             name: "addEmployee",
         }]
     )
-    .then(() => {
-        inquirer
-        .prompt(questions)
-        .then(async (answers) => {
-            await inquirer
-            .prompt(rolequestion(answers.role))
-            .then((res) => {
-                const newemployee = new Employee(answers.role, answers.name, answers.id, answers.email, res);
-                teamMember.push(newemployee);
-                console.log(`${answers.name} is added to the team`)
-                startApp();
-            })
-        });
+    .then((value) => {
+        if(value.addEmployee) {
+            inquirer
+            .prompt(questions)
+            .then((answers) => {
+                inquirer
+                .prompt(rolequestion(answers.role))
+                .then((res) => {
+                    const newemployee = new Employee(answers.role, answers.name, answers.id, answers.email, res);
+                    teamMember.push(newemployee);
+                    console.log(`${answers.name} is added to the team`)
+                    startApp();
+                })
+            });
+        }   
+        else {
+            fs.writeFileSync(outputPath, render(teamMember), (err) => {        
+                if (err) {
+                    return console.log(err);
+                }}
+            );
+            console.log("Profiles generated for your engineer team...\nPlease find in the directory named as 'output'\nGoodbye!");
+            process.exit(0);
+        }        
     })
-    .then(() => {
-        fs.writeFileSync(outputPath, render(teamMember), (err) => {        
-            if (err) {
-                return console.log(err);
-            }}
-        );
-    })
+    // .then(() => {
+        
+    // })
     // .then(
     //     console.log("Profiles generated for your engineer team...\nPlease find in the directory named as 'output'")
     // )
@@ -123,7 +129,7 @@ const startApp = async () => {
 // }
 
 // function init() {
-    startApp();
+startApp();
 //     generateTeam();
 // }
 
