@@ -49,7 +49,7 @@ function rolequestion(role) {
                 {
                 type: "input",
                 message: "Please enter the office number of the manager:",
-                name: "officeNumber"
+                name: "special"
                 }
             )
             break;
@@ -58,7 +58,7 @@ function rolequestion(role) {
                 {
                 type: "input",
                 message: "Please enter the username of github account",
-                name: "githubname"
+                name: "special"
                 }
             )
           break;
@@ -67,7 +67,7 @@ function rolequestion(role) {
                 {
                 type: "input",
                 message: "Please enter the name of school the employee is attending",
-                name: "school"
+                name: "special"
                 }
             )
             break;
@@ -93,7 +93,7 @@ const startApp = () => {
                 inquirer
                 .prompt(rolequestion(answers.role))
                 .then((res) => {
-                    const newemployee = new Employee(answers.role, answers.name, answers.id, answers.email, res);
+                    const newemployee = new Employee(answers.role, answers.name, answers.id, answers.email, res.special);
                     teamMember.push(newemployee);
                     console.log(`${answers.name} is added to the team`)
                     startApp();
@@ -110,27 +110,6 @@ const startApp = () => {
             process.exit(0);
         }        
     })
-    // .then(() => {
-        
-    // })
-    // .then(
-    //     console.log("Profiles generated for your engineer team...\nPlease find in the directory named as 'output'")
-    // )
 };
 
-// async function generateTeam() {
-//     await startApp();
-//     fs.writeFileSync(outputPath, render(teamMember), (err) => {        
-//         if (err) {
-//             return console.log(err);
-//         }}
-//     );
-//     console.log("Profiles generated for your engineer team...\nPlease find in the directory named as 'output'")
-// }
-
-// function init() {
 startApp();
-//     generateTeam();
-// }
-
-// init();
