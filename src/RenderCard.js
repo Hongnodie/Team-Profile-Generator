@@ -1,4 +1,6 @@
+function render() {
+    
+}
 
 
-
-module.exports = RenderCard;
+module.exports = render;

@@ -3,9 +3,7 @@ const fs = require("fs");
 const inquirer = require("inquirer");
 const path = require("path");
 // Local file inclusion
-const Manager = require("./lib/Manager");
-const Engineer = require("./lib/Engineer");
-const Intern = require("./lib/Intern");
+const Employee = require("./lib/Employee");
 // Template helper code added
 const RenderCard = require("./src/RenderCard");
 // Output path using path package 
@@ -78,3 +76,43 @@ function rolequestion(role) {
     return rolequestions;
   
 }
+
+const init = () => {
+    startApp();
+    generateTeam();
+}
+
+const startApp = () => {
+    inquirer.prompt([
+        {
+            type: "confirm",
+            message: "Would you like to add an employee?",
+            name: "addEmployee",
+        }]
+    )
+    .then(() => {
+        inquirer
+        .prompt(questions)
+        .then((answers) => {
+            inquirer
+            .prompt(rolequestion(answers.role))
+            .then((res) => {
+                const newemployee = new Employee(answers.name, answers.id, answers.email, res);
+                teamMember.push(newemployee);
+                console.log(`${answers.name} is added to the team`)
+                startApp();
+            })
+        }); 
+    })
+};
+
+function generateTeam() {
+    fs.writeFileSync(outputPath, render(teamMember), (err) => {        
+        if (err) {
+            return console.log(err);
+        }}
+    );
+    console.log("Generating profiles for your engineer team...\nPlease find in the directory named as 'output'")
+}
+
+init();
