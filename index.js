@@ -1,6 +1,7 @@
 // npm package inclusion
 const fs = require("fs");
 const inquirer = require("inquirer");
+const { initial } = require("lodash");
 const path = require("path");
 // Local file inclusion
 const Employee = require("./lib/Employee");
@@ -77,12 +78,7 @@ function rolequestion(role) {
   
 }
 
-const init = () => {
-    startApp();
-    generateTeam();
-}
-
-const startApp = () => {
+const startApp = async () => {
     inquirer.prompt([
         {
             type: "confirm",
@@ -93,8 +89,8 @@ const startApp = () => {
     .then(() => {
         inquirer
         .prompt(questions)
-        .then((answers) => {
-            inquirer
+        .then(async (answers) => {
+            await inquirer
             .prompt(rolequestion(answers.role))
             .then((res) => {
                 const newemployee = new Employee(answers.role, answers.name, answers.id, answers.email, res);
@@ -104,15 +100,31 @@ const startApp = () => {
             })
         });
     })
+    .then(() => {
+        fs.writeFileSync(outputPath, render(teamMember), (err) => {        
+            if (err) {
+                return console.log(err);
+            }}
+        );
+    })
+    // .then(
+    //     console.log("Profiles generated for your engineer team...\nPlease find in the directory named as 'output'")
+    // )
 };
 
-function generateTeam() {
-    fs.writeFileSync(outputPath, render(teamMember), (err) => {        
-        if (err) {
-            return console.log(err);
-        }}
-    );
-    console.log("Generating profiles for your engineer team...\nPlease find in the directory named as 'output'")
-}
+// async function generateTeam() {
+//     await startApp();
+//     fs.writeFileSync(outputPath, render(teamMember), (err) => {        
+//         if (err) {
+//             return console.log(err);
+//         }}
+//     );
+//     console.log("Profiles generated for your engineer team...\nPlease find in the directory named as 'output'")
+// }
 
-init();
+// function init() {
+    startApp();
+//     generateTeam();
+// }
+
+// init();
