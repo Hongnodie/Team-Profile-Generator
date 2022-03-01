@@ -83,7 +83,7 @@
   <br>
   `npm i`
   <br>
-  in integrated Terminal [Check as video](xxx)
+  in integrated Terminal [Check as video](https://drive.google.com/file/d/1T2LzkY4qujtF37zS8RxiVZkryn9MIvcE/view)
   <br>
 
   ###  **USAGE INFO**
