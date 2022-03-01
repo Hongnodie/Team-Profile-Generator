@@ -5,7 +5,7 @@ const path = require("path");
 // Local file inclusion
 const Employee = require("./lib/Employee");
 // Template helper code added
-const render = require("./src/RenderCard");
+const render = require("./lib/RenderCard");
 // Output path using path package 
 const outputdir = path.resolve(__dirname, "output"); // to be saved to a generated directory named as output
 const outputPath = path.join(outputdir, "TeamDashboard.html"); // Will be named as TeamDashboard.html in that folder
