@@ -135,3 +135,7 @@
   or email to
   [92ganhong@gmail.com](mailto:92ganhong@gmail.com)
   <br>
+  see codes at
+  [Github Repo](https://github.com/Hongnodie/Team-Profile-Generator.git)
+  <br>
+  
