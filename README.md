@@ -73,9 +73,9 @@
 
   ###  **SCREENSHOT**
 
-  [![Screenshot](xxx)](xxx)
+  [![Screenshot](./src/Screenshot-10.png)](./src/Screenshot-10.png)
   <br>
-  [![Demo](xxx)](xxx)  
+  [![Demo](./src/Demo.png)](./src/Demo.png)  
 
   ###  **INSTALLATION INSTRUCTIONS**
   
